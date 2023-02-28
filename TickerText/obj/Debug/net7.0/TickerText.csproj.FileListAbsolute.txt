@@ -1,0 +1,15 @@
+C:\Repos\TickerText\TickerText\bin\Debug\net7.0\TickerText.exe
+C:\Repos\TickerText\TickerText\bin\Debug\net7.0\TickerText.deps.json
+C:\Repos\TickerText\TickerText\bin\Debug\net7.0\TickerText.runtimeconfig.json
+C:\Repos\TickerText\TickerText\bin\Debug\net7.0\TickerText.dll
+C:\Repos\TickerText\TickerText\bin\Debug\net7.0\TickerText.pdb
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.csproj.AssemblyReference.cache
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.AssemblyInfoInputs.cache
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.AssemblyInfo.cs
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.csproj.CoreCompileInputs.cache
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.dll
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\refint\TickerText.dll
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.pdb
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\TickerText.genruntimeconfig.cache
+C:\Repos\TickerText\TickerText\obj\Debug\net7.0\ref\TickerText.dll
