@@ -19,6 +19,9 @@
 *.vsps
 *.vsp
 *.psess
+*.cache
+*.dll
+*.pdb
 
 # Other files and directories
 thumbs.db
