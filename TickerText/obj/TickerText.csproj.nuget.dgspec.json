@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Repos\\TickerText\\TickerText\\TickerText.csproj": {}
+    "C:\\Users\\Lea\\Desktop\\DHBW\\Repos\\TickerText\\TickerText\\TickerText.csproj": {}
   },
   "projects": {
-    "C:\\Repos\\TickerText\\TickerText\\TickerText.csproj": {
+    "C:\\Users\\Lea\\Desktop\\DHBW\\Repos\\TickerText\\TickerText\\TickerText.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Repos\\TickerText\\TickerText\\TickerText.csproj",
+        "projectUniqueName": "C:\\Users\\Lea\\Desktop\\DHBW\\Repos\\TickerText\\TickerText\\TickerText.csproj",
         "projectName": "TickerText",
-        "projectPath": "C:\\Repos\\TickerText\\TickerText\\TickerText.csproj",
-        "packagesPath": "C:\\Users\\simon.messmer\\.nuget\\packages\\",
-        "outputPath": "C:\\Repos\\TickerText\\TickerText\\obj\\",
+        "projectPath": "C:\\Users\\Lea\\Desktop\\DHBW\\Repos\\TickerText\\TickerText\\TickerText.csproj",
+        "packagesPath": "C:\\Users\\Lea\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lea\\Desktop\\DHBW\\Repos\\TickerText\\TickerText\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\simon.messmer\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Lea\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://srv-buildcenter01:5000/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\Lea\\.dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
