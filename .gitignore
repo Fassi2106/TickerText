@@ -26,3 +26,11 @@
 # Other files and directories
 thumbs.db
 .DS_Store
+*.exe
+TickerText/obj/Debug/net7.0/TickerText.csproj.FileListAbsolute.txt
+TickerText/obj/Debug/net7.0/TickerText.GeneratedMSBuildEditorConfig.editorconfig
+TickerText/obj/project.assets.json
+TickerText/obj/rider.project.restore.info
+TickerText/obj/TickerText.csproj.nuget.dgspec.json
+TickerText/obj/project.packagespec.json
+TickerText/obj/TickerText.csproj.nuget.g.props
