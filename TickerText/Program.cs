@@ -1,9 +1,13 @@
-﻿namespace TickerText;
+﻿using TickerText.Menu;
+using TickerText.Text.Fonts.FontBig;
+
+namespace TickerText;
 
 public class Program
 {
     public static async Task Main(string[] args)
     {
-        var menuManager = new MenuManager();
+        MenuManager menuManager = new MenuManager();
+        menuManager.Start();
     }
 }
