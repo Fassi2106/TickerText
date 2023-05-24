@@ -11,6 +11,33 @@ public class FontBig : IFont
 
     public FontBig()
     {
+        AddCharacter('a', Font_Big.FontBig__a.Char());
+        AddCharacter('b', Font_Big.FontBig__b.Char());
+        AddCharacter('c', Font_Big.FontBig__c.Char());
+        AddCharacter('d', Font_Big.FontBig__d.Char());
+        AddCharacter('e', Font_Big.FontBig__e.Char());
+        AddCharacter('f', Font_Big.FontBig__f.Char());
+        AddCharacter('g', Font_Big.FontBig__g.Char());
+        AddCharacter('h', Font_Big.FontBig__h.Char());
+        AddCharacter('i', Font_Big.FontBig__i.Char());
+        AddCharacter('j', Font_Big.FontBig__j.Char());
+        AddCharacter('k', Font_Big.FontBig__k.Char());
+        AddCharacter('l', Font_Big.FontBig__l.Char());
+        AddCharacter('m', Font_Big.FontBig__m.Char());
+        AddCharacter('n', Font_Big.FontBig__n.Char());
+        AddCharacter('o', Font_Big.FontBig__o.Char());
+        AddCharacter('p', Font_Big.FontBig__p.Char());
+        AddCharacter('q', Font_Big.FontBig__q.Char());
+        AddCharacter('r', Font_Big.FontBig__r.Char());
+        AddCharacter('s', Font_Big.FontBig__s.Char());
+        AddCharacter('t', Font_Big.FontBig__t.Char());
+        AddCharacter('u', Font_Big.FontBig__u.Char());
+        AddCharacter('v', Font_Big.FontBig__v.Char());
+        AddCharacter('w', Font_Big.FontBig__w.Char());
+        AddCharacter('x', Font_Big.FontBig__x.Char());
+        AddCharacter('y', Font_Big.FontBig__y.Char());
+        AddCharacter('z', Font_Big.FontBig__z.Char());
+        
         AddCharacter('A', Font_Big.FontBig_A.Char());
         AddCharacter('B', Font_Big.FontBig_B.Char());
         AddCharacter('C', Font_Big.FontBig_C.Char());
