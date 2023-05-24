@@ -1,14 +1,12 @@
+using TickerText.Templates;
 using TickerText.Text;
 
 namespace TickerText.Menu;
 
 public class ActionMenu : IMenu
 {
-    private AsciiArtGenerator asciiArtGenerator;
-
     public ActionMenu()
     {
-        asciiArtGenerator = new AsciiArtGenerator();
     }
 
     public void Show()
@@ -49,6 +47,6 @@ public class ActionMenu : IMenu
         Console.WriteLine("Enter the text to display: ");
         string text = Console.ReadLine();
 
-        Console.Write(asciiArtGenerator.GenerateAsciiArt(text));
+        Console.Write(AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate()));
     }
 }

@@ -1,13 +1,16 @@
 ﻿using TickerText.Menu;
-using TickerText.Text.Fonts.FontBig;
+using TickerText.Templates;
 
 namespace TickerText;
 
 public class Program
 {
+    public static readonly TemplateManager TemplateManager = new TemplateManager();
+
+    public static readonly MenuManager MenuManager = new MenuManager();
+    
     public static async Task Main(string[] args)
     {
-        MenuManager menuManager = new MenuManager();
-        menuManager.Start();
+        MenuManager.Start();
     }
 }
