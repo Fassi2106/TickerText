@@ -7,15 +7,15 @@ public static class AsciiArtGenerator
 {
     public static string[] GenerateAsciiArt(string text, TextTemplate textTemplate)
     {
-        var result = new string[DetermineHeight(text, textTemplate.Font)];
+        var result = new string[DetermineHeight(text, textTemplate.Font)-1];
         
         foreach (var _char in text)
         {
             var asciiChar = textTemplate.Font.GetCharacter(_char).Split(Environment.NewLine);
 
-            for (int i = 0; i < asciiChar.Length; i++)
+            for (int i = 1; i < asciiChar.Length; i++)
             {
-                result[i] += asciiChar[i];
+                result[i-1] += asciiChar[i];
             }
         }
 

@@ -4,9 +4,10 @@ public static class FontBig_A
 {
  public static string Char() =>
   @"
-     /\    
-    /  \   
-   / /\ \  
-  / ____ \ 
- /_/    \_\";
+     __     
+    /  \    
+   / /\ \   
+  / ____ \  
+ / /    \ \ 
+/_/      \_\";
 }

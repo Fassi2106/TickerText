@@ -47,6 +47,10 @@ public class ActionMenu : IMenu
         Console.WriteLine("Enter the text to display: ");
         string text = Console.ReadLine();
 
-        Console.Write(AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate()));
+        var resultText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
+
+        var textRunner = new TextRunner(resultText, 50);
+        
+        textRunner.Start();
     }
 }

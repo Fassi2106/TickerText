@@ -9,6 +9,5 @@ public static class FontBig_Q
  | |  | |
  | |  | |
  | |__| |
-  \___\_\
-";
+  \___\_\";
 }

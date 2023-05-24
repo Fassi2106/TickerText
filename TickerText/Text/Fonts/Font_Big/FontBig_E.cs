@@ -9,6 +9,5 @@ public static class FontBig_E
  | |__   
  |  __|  
  | |____ 
- |______|
-";
+ |______|";
 }

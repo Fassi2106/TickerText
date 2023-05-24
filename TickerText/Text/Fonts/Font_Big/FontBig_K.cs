@@ -9,6 +9,5 @@ public static class FontBig_K
  | ' / 
  |  <  
  | . \ 
- |_|\_\
-";
+ |_|\_\";
 }

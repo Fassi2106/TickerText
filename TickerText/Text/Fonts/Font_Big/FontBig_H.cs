@@ -9,6 +9,5 @@ public static class FontBig_H
  | |__| |
  |  __  |
  | |  | |
- |_|  |_|
-";
+ |_|  |_|";
 }
