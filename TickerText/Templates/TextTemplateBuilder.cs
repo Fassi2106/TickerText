@@ -7,13 +7,24 @@ public class TextTemplateBuilder
     private string _name;
     private IFont? _font;
     private ConsoleColor _color;
+    private int _speedInMillis;
     private bool _blinking;
 
+    public TextTemplateBuilder(TextTemplate template)
+    {
+        _name = template.Name;
+        _font = template.Font;
+        _color = template.Color;
+        _speedInMillis = template.SpeedInMillis;
+        _blinking = template.Blinking;
+    }
+    
     public TextTemplateBuilder()
     {
         _name = "";
         _font = null;
         _color = ConsoleColor.White;
+        _speedInMillis = 100;
         _blinking = false;
     }
 
@@ -38,6 +49,13 @@ public class TextTemplateBuilder
         return this;
     }
 
+    public TextTemplateBuilder SetSpeed(int speedInMillis)
+    {
+        _speedInMillis = speedInMillis;
+
+        return this;
+    }
+
     public TextTemplateBuilder SetBlinking(bool blinking)
     {
         _blinking = blinking;
@@ -57,6 +75,6 @@ public class TextTemplateBuilder
             throw new ArgumentException("A font must be selected");
         }
 
-        return new TextTemplate(_name, _font, _color, _blinking);
+        return new TextTemplate(_name, _font, _color, _speedInMillis, _blinking);
     }
 }

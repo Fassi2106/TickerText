@@ -1,4 +1,5 @@
 using System.Reflection;
+using TickerText.Menu;
 using TickerText.Text.Fonts;
 
 namespace TickerText.Templates;
@@ -21,9 +22,9 @@ public class TemplateManager
         _selectedTemplate = defaultTemplate;
     }
 
-    public static TextTemplate CreateDefaultTemplate()
+    private static TextTemplate CreateDefaultTemplate()
     {
-        return new TextTemplate("Default", new FontBig(), ConsoleColor.White, false);
+        return new TextTemplate("Default", new FontBig(), ConsoleColor.White, 100, false);
     }
 
     public TextTemplate GetSelectedTemplate()
@@ -31,16 +32,29 @@ public class TemplateManager
         return _selectedTemplate;
     }
     
+    public void DisplayTemplates()
+    {
+        Console.WriteLine("=== Templates ===");
+        
+        foreach (var template in _templates)
+        {
+            template.Display();
+            
+            Console.WriteLine();
+        }
+    }
+    
     public void CreateTemplate()
     {
         Console.WriteLine("=== Create Template ===");
 
-        TextTemplateBuilder templateBuilder = new TextTemplateBuilder();
+        var templateBuilder = new TextTemplateBuilder();
 
-        Console.Write("Name: ");
-        templateBuilder.SetName(Console.ReadLine());
+        var stringInputManager = new InputManager<string>("Name: ");
+        
+        templateBuilder.SetName(stringInputManager.ReceiveInput());
 
-        List<IFont> availableFonts = GetAvailableFonts();
+        var availableFonts = GetAvailableFonts();
         if (availableFonts.Count == 0)
         {
             Console.WriteLine("No fonts available. Template creation aborted.");
@@ -48,28 +62,40 @@ public class TemplateManager
         }
 
         Console.WriteLine("Available Fonts:");
-        for (int i = 0; i < availableFonts.Count; i++)
+        for (var i = 0; i < availableFonts.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {availableFonts[i].Name}");
         }
 
-        int fontChoice = GetInputInRange("Enter the number of the desired font: ", 1, availableFonts.Count);
-        templateBuilder.SetFont(availableFonts[fontChoice - 1]);
+        var intInputManager = new InputManager<int>("Enter number of font: ");
 
-        Console.Write("Color: ");
-        ConsoleColor color;
-        if (!Enum.TryParse(Console.ReadLine(), out color))
+        var fontSelection = intInputManager.ReceiveInput();
+
+        while (fontSelection > availableFonts.Count)
         {
-            Console.WriteLine("Invalid input for Color. Template creation aborted.");
-            return;
+            Console.WriteLine("Invalid selection.");
+
+            fontSelection = intInputManager.ReceiveInput();
         }
+
+        templateBuilder.SetFont(availableFonts[fontSelection - 1]);
+
+        stringInputManager = new InputManager<string>("Color: ");
+        
+        ConsoleColor color;
+
+        while (!Enum.TryParse(stringInputManager.ReceiveInput(), out color))
+        {
+            Console.WriteLine("Invalid selection.");
+        }
+        
         templateBuilder.SetColor(color);
 
-        Console.Write("Blinking (Y/N): ");
-        bool blinking = (Console.ReadLine().ToUpper() == "Y");
-        templateBuilder.SetBlinking(blinking);
+        var boolInputManager = new InputManager<bool>("Blinking: ");
 
-        TextTemplate template = templateBuilder.Build();
+        templateBuilder.SetBlinking(boolInputManager.ReceiveInput());
+
+        var template = templateBuilder.Build();
 
         _templates.Add(template);
 
@@ -79,67 +105,82 @@ public class TemplateManager
     public void EditTemplate()
     {
         Console.WriteLine("=== Edit Template ===");
-        Console.Write("Enter template name: ");
-        string templateName = Console.ReadLine();
 
-        TextTemplate template = _templates.Find(t => t.Name == templateName);
-        if (template == null)
+        DisplayTemplates();
+
+        TextTemplate? template = null;
+
+        var stringInputManager = new InputManager<string>("Enter template name: ");
+        
+        while (template == null)
         {
-            Console.WriteLine("Template not found.");
+            var templateSelection = stringInputManager.ReceiveInput();
+
+            template = _templates.FirstOrDefault(t => t.Name.Equals(templateSelection));
+
+            if (template == null)
+            {
+                Console.WriteLine("Template not found");
+            }   
+        }
+
+        var templateBuilder = new TextTemplateBuilder(template);
+        
+        Console.WriteLine("Enter values. Leave empty to keep values.");
+
+        stringInputManager = new InputManager<string>($"Name ({template.Name}): ", true);
+
+        var value = stringInputManager.ReceiveInput();
+
+        if (!string.IsNullOrEmpty(value))
+        {
+            templateBuilder.SetName(value);
+        }
+        
+        var availableFonts = GetAvailableFonts();
+        if (availableFonts.Count == 0)
+        {
+            Console.WriteLine("No fonts available. Template creation aborted.");
             return;
         }
 
-        Console.WriteLine("Enter new values (press Enter to keep current value):");
-
-        TextTemplateBuilder templateBuilder = new TextTemplateBuilder();
-
-        Console.Write($"Name ({template.Name}): ");
-        string newName = Console.ReadLine();
-        if (!string.IsNullOrEmpty(newName))
+        Console.WriteLine("Available Fonts:");
+        for (var i = 0; i < availableFonts.Count; i++)
         {
-            templateBuilder.SetName(newName);
+            Console.WriteLine($"{i + 1}. {availableFonts[i].Name}");
         }
 
-        List<IFont> availableFonts = GetAvailableFonts();
-        if (availableFonts.Count == 0)
-        {
-            Console.WriteLine("No fonts available. Keeping current font.");
-        }
-        else
-        {
-            Console.WriteLine("Available Fonts:");
-            for (int i = 0; i < availableFonts.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {availableFonts[i].Name}");
-            }
+        var intInputManager = new InputManager<int>("Enter number of font: ", true);
 
-            int fontChoice = GetInputInRange("Enter the number of the desired font (or Enter to keep current font): ", 1, availableFonts.Count, true);
-            if (fontChoice != -1)
-            {
-                templateBuilder.SetFont(availableFonts[fontChoice - 1]);
-            }
+        var fontSelection = intInputManager.ReceiveInput();
+
+        while (fontSelection > availableFonts.Count)
+        {
+            Console.WriteLine("Invalid selection.");
+
+            fontSelection = intInputManager.ReceiveInput();
         }
 
-        Console.Write($"Color ({template.Color}): ");
-        string newColorInput = Console.ReadLine();
-        if (!string.IsNullOrEmpty(newColorInput))
+        templateBuilder.SetFont(availableFonts[fontSelection - 1]);
+        
+
+        stringInputManager = new InputManager<string>("Color: ", true);
+        
+        ConsoleColor color;
+
+        while (!Enum.TryParse(stringInputManager.ReceiveInput(), out color))
         {
-            if (Enum.TryParse(newColorInput, out ConsoleColor newColor))
-            {
-                templateBuilder.SetColor(newColor);
-            }
+            Console.WriteLine("Invalid selection.");
         }
+        
+        templateBuilder.SetColor(color);
+        
+        var boolInputManager = new InputManager<bool>("Blinking: ", true);
 
-        Console.Write($"Blinking ({(template.Blinking ? "Y" : "N")}): ");
-        string newBlinkingInput = Console.ReadLine();
-        if (!string.IsNullOrEmpty(newBlinkingInput))
-        {
-            templateBuilder.SetBlinking(newBlinkingInput.ToUpper() == "Y");
-        }
-
-        TextTemplate updatedTemplate = templateBuilder.Build();
-
-        // Update the template with the new values
+        templateBuilder.SetBlinking(boolInputManager.ReceiveInput());
+        
+        var updatedTemplate = templateBuilder.Build();
+        
         template.Name = updatedTemplate.Name;
         template.Font = updatedTemplate.Font;
         template.Color = updatedTemplate.Color;
@@ -151,14 +192,23 @@ public class TemplateManager
     public void DeleteTemplate()
     {
         Console.WriteLine("=== Delete Template ===");
-        Console.Write("Enter template name: ");
-        string templateName = Console.ReadLine();
+        
+        DisplayTemplates();
+        
+        TextTemplate? template = null;
 
-        TextTemplate template = _templates.Find(t => t.Name == templateName);
-        if (template == null)
+        var stringInputManager = new InputManager<string>("Enter template name: ");
+        
+        while (template == null)
         {
-            Console.WriteLine("Template not found.");
-            return;
+            var templateSelection = stringInputManager.ReceiveInput();
+
+            template = _templates.FirstOrDefault(t => t.Name.Equals(templateSelection));
+
+            if (template == null)
+            {
+                Console.WriteLine("Template not found");
+            }   
         }
 
         _templates.Remove(template);
@@ -166,15 +216,7 @@ public class TemplateManager
         Console.WriteLine("Template deleted successfully.");
     }
 
-    public void DisplayTemplates()
-    {
-        Console.WriteLine("=== Templates ===");
-        foreach (TextTemplate template in _templates)
-        {
-            template.Display();
-            Console.WriteLine();
-        }
-    }
+    
     
     private List<IFont> GetAvailableFonts()
     {
@@ -193,36 +235,5 @@ public class TemplateManager
         }
 
         return availableFonts;
-    }
-    
-    private int GetInputInRange(string prompt, int minValue, int maxValue, bool allowEmptyInput = false)
-    {
-        while (true)
-        {
-            Console.Write(prompt);
-            string input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
-            {
-                if (allowEmptyInput)
-                {
-                    return -1;
-                }
-                else
-                {
-                    Console.WriteLine("Input cannot be empty.");
-                    continue;
-                }
-            }
-
-            if (int.TryParse(input, out int value))
-            {
-                if (value >= minValue && value <= maxValue)
-                {
-                    return value;
-                }
-            }
-
-            Console.WriteLine($"Invalid input. Please enter a number between {minValue} and {maxValue}.");
-        }
     }
 }

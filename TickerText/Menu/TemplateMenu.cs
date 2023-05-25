@@ -4,55 +4,57 @@ namespace TickerText.Menu;
 
 public class TemplateMenu : IMenu
 {
-    private TemplateManager templateManager;
-
     public TemplateMenu()
     {
-        templateManager = new TemplateManager();
+
     }
 
     public void Show()
     {
         Console.WriteLine("=== Template Menu ===");
-        Console.WriteLine("1. Template erstellen");
-        Console.WriteLine("2. Template bearbeiten");
-        Console.WriteLine("3. Template löschen");
-        Console.WriteLine("4. Templates anzeigen");
-        Console.WriteLine("5. Zurück zum Hauptmenü");
+        Console.WriteLine("1. Show templates");
+        Console.WriteLine("2. Create template");
+        Console.WriteLine("3. Edit template");
+        Console.WriteLine("4. Delete template");
+        Console.WriteLine("5. Back to Main Menu");
     }
 
     public void HandleInput()
     {
-        int choice = GetInput();
-        switch (choice)
+        var inputManager = new InputManager<int>("Selection: ");
+        
+        switch (inputManager.ReceiveInput())
         {
             case 1:
-                templateManager.CreateTemplate();
+                Program.TemplateManager.DisplayTemplates();
+                
                 break;
             case 2:
-                templateManager.EditTemplate();
+                Program.TemplateManager.CreateTemplate();
+                
                 break;
             case 3:
-                templateManager.DeleteTemplate();
+                Program.TemplateManager.EditTemplate();
+                
                 break;
             case 4:
-                templateManager.DisplayTemplates();
+                Program.TemplateManager.DeleteTemplate();
+                
                 break;
             case 5:
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Show();
-                mainMenu.HandleInput();
+                IMenu menu = new MainMenu();
+                
+                Program.MenuManager.SetCurrentMenu(menu);
+                
                 break;
             default:
-                Console.WriteLine("Ungültige Eingabe!");
+                Console.WriteLine("Invalid Input!");
+                
                 HandleInput();
+                
                 break;
         }
-    }
-
-    private int GetInput()
-    {
-        Console.Write("Auswahl: ");
-        return int.Parse(Console.ReadLine());
+        
+        Program.MenuManager.RunCurrentMenu(false);
     }
 }

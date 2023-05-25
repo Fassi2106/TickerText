@@ -1,4 +1,3 @@
-using TickerText.Templates;
 using TickerText.Text;
 
 namespace TickerText.Menu;
@@ -7,6 +6,7 @@ public class ActionMenu : IMenu
 {
     public ActionMenu()
     {
+        
     }
 
     public void Show()
@@ -18,38 +18,38 @@ public class ActionMenu : IMenu
 
     public void HandleInput()
     {
-        int choice = GetInput();
-        switch (choice)
+        var inputManager = new InputManager<int>("Selection: ");
+        
+        switch (inputManager.ReceiveInput())
         {
             case 1:
                 RunText();
+                
                 break;
             case 2:
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Show();
-                mainMenu.HandleInput();
+                var menu = new MainMenu();
+                
+                Program.MenuManager.SetCurrentMenu(menu);
+                
                 break;
             default:
                 Console.WriteLine("Invalid input!");
+                
                 HandleInput();
+                
                 break;
         }
     }
 
-    private int GetInput()
+    private static void RunText()
     {
-        Console.Write("Enter your choice: ");
-        return int.Parse(Console.ReadLine());
-    }
+        var inputManager = new InputManager<string>("Enter text to display: ");
 
-    private void RunText()
-    {
-        Console.WriteLine("Enter the text to display: ");
-        string text = Console.ReadLine();
+        var text = inputManager.ReceiveInput();
 
-        var resultText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
+        var asciiText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
 
-        var textRunner = new TextRunner(resultText, 50);
+        var textRunner = new TextRunner(asciiText, Program.TemplateManager.GetSelectedTemplate().SpeedInMillis);
         
         textRunner.Start();
     }

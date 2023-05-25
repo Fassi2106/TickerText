@@ -2,24 +2,28 @@ namespace TickerText.Menu;
 
 public class MenuManager
 {
-    private IMenu currentMenu;
+    private IMenu _currentMenu = new MainMenu();
 
     public void Start()
     {
-        MainMenu mainMenu = new MainMenu();
-        SetCurrentMenu(mainMenu);
         RunCurrentMenu();
     }
 
-    private void SetCurrentMenu(IMenu menu)
+    public void SetCurrentMenu(IMenu menu)
     {
-        currentMenu = menu;
+        _currentMenu = menu;
+        
+        RunCurrentMenu();
     }
 
-    private void RunCurrentMenu()
+    public void RunCurrentMenu(bool clear = true)
     {
-        currentMenu.Show();
-        currentMenu.HandleInput();
-        RunCurrentMenu(); // Rekursiver Aufruf, um das Menü am Ende der Verarbeitung erneut anzuzeigen
+        if (clear)
+        {
+            Console.Clear();
+        }
+
+        _currentMenu.Show();
+        _currentMenu.HandleInput();
     }
 }
