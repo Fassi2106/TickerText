@@ -9,6 +9,17 @@ public class FontBig : IFont
 
     public FontBig()
     {
+        AddCharacter('0', Font_Big.FontBig_0.Char());
+        AddCharacter('1', Font_Big.FontBig_1.Char());
+        AddCharacter('2', Font_Big.FontBig_2.Char());
+        AddCharacter('3', Font_Big.FontBig_3.Char());
+        AddCharacter('4', Font_Big.FontBig_4.Char());
+        AddCharacter('5', Font_Big.FontBig_5.Char());
+        AddCharacter('6', Font_Big.FontBig_6.Char());
+        AddCharacter('7', Font_Big.FontBig_7.Char());
+        AddCharacter('8', Font_Big.FontBig_8.Char());
+        AddCharacter('9', Font_Big.FontBig_9.Char());
+        
         AddCharacter('a', Font_Big.FontBig__a.Char());
         AddCharacter('b', Font_Big.FontBig__b.Char());
         AddCharacter('c', Font_Big.FontBig__c.Char());
