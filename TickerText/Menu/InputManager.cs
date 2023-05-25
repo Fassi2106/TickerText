@@ -23,7 +23,7 @@ public class InputManager<T>
         
         var input = Console.ReadLine();
 
-        if (_allowEmpty)
+        if (_allowEmpty && string.IsNullOrEmpty(input))
         {
             return default;
         }

@@ -1,4 +1,4 @@
-using System.Reflection;
+using TickerText.DataStorage;
 using TickerText.Menu;
 using TickerText.Text.Fonts;
 
@@ -6,7 +6,7 @@ namespace TickerText.Templates;
 
 public class TemplateManager
 {
-    private readonly List<TextTemplate> _templates;
+    private List<TextTemplate> _templates;
 
     private TextTemplate _selectedTemplate;
     
@@ -24,19 +24,24 @@ public class TemplateManager
 
     private static TextTemplate CreateDefaultTemplate()
     {
-        return new TextTemplate("Default", new FontBig(), ConsoleColor.White, 100, false);
+        return new TextTemplate("Default", new FontBig().Name, ConsoleColor.White, 100, false);
     }
 
     public TextTemplate GetSelectedTemplate()
     {
         return _selectedTemplate;
     }
+
+    public void SetSelectedTemplate(TextTemplate template)
+    {
+        _selectedTemplate = template;
+    }
     
     public void DisplayTemplates()
     {
         Console.WriteLine("=== Templates ===");
         
-        foreach (var template in _templates)
+        foreach (var template in GetTemplates())
         {
             template.Display();
             
@@ -54,7 +59,7 @@ public class TemplateManager
         
         templateBuilder.SetName(stringInputManager.ReceiveInput());
 
-        var availableFonts = GetAvailableFonts();
+        var availableFonts = FontHelper.GetAvailableFonts();
         if (availableFonts.Count == 0)
         {
             Console.WriteLine("No fonts available. Template creation aborted.");
@@ -78,7 +83,7 @@ public class TemplateManager
             fontSelection = intInputManager.ReceiveInput();
         }
 
-        templateBuilder.SetFont(availableFonts[fontSelection - 1]);
+        templateBuilder.SetFont(availableFonts[fontSelection - 1].Name);
 
         stringInputManager = new InputManager<string>("Color: ");
         
@@ -110,7 +115,7 @@ public class TemplateManager
 
         var template = templateBuilder.Build();
 
-        _templates.Add(template);
+        AddTemplate(template);
 
         Console.WriteLine("Template created successfully.");
     }
@@ -129,7 +134,7 @@ public class TemplateManager
         {
             var templateSelection = stringInputManager.ReceiveInput();
 
-            template = _templates.FirstOrDefault(t => t.Name.Equals(templateSelection));
+            template = GetTemplates().FirstOrDefault(t => t.Name.Equals(templateSelection));
 
             if (template == null)
             {
@@ -150,7 +155,7 @@ public class TemplateManager
             templateBuilder.SetName(value);
         }
         
-        var availableFonts = GetAvailableFonts();
+        var availableFonts = FontHelper.GetAvailableFonts();
         if (availableFonts.Count == 0)
         {
             Console.WriteLine("No fonts available. Template creation aborted.");
@@ -174,10 +179,10 @@ public class TemplateManager
             fontSelection = intInputManager.ReceiveInput();
         }
 
-        templateBuilder.SetFont(availableFonts[fontSelection - 1]);
+        templateBuilder.SetFont(availableFonts[fontSelection - 1].Name);
         
 
-        stringInputManager = new InputManager<string>("Color: ", true);
+        stringInputManager = new InputManager<string>("Color: ");
         
         ConsoleColor color;
 
@@ -207,10 +212,7 @@ public class TemplateManager
         
         var updatedTemplate = templateBuilder.Build();
         
-        template.Name = updatedTemplate.Name;
-        template.Font = updatedTemplate.Font;
-        template.Color = updatedTemplate.Color;
-        template.Blinking = updatedTemplate.Blinking;
+        UpdateTemplate(template.Name, updatedTemplate);
 
         Console.WriteLine("Template updated successfully.");
     }
@@ -229,7 +231,7 @@ public class TemplateManager
         {
             var templateSelection = stringInputManager.ReceiveInput();
 
-            template = _templates.FirstOrDefault(t => t.Name.Equals(templateSelection));
+            template = GetTemplates().FirstOrDefault(t => t.Name.Equals(templateSelection));
 
             if (template == null)
             {
@@ -237,29 +239,50 @@ public class TemplateManager
             }   
         }
 
-        _templates.Remove(template);
+        RemoveTemplate(template);
 
         Console.WriteLine("Template deleted successfully.");
     }
 
-    
-    
-    private List<IFont> GetAvailableFonts()
+    private void RemoveTemplate(TextTemplate template)
     {
-        List<IFont> availableFonts = new List<IFont>();
+        _templates.Remove(template);
+        
+        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+            
+        storageProvider.SaveData(_templates);
+    }
 
-        Assembly assembly = Assembly.GetExecutingAssembly();
-        Type[] types = assembly.GetTypes();
+    private void AddTemplate(TextTemplate template)
+    {
+        _templates.Add(template);
+        
+        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+            
+        storageProvider.SaveData(_templates);
+    }
 
-        foreach (Type type in types)
-        {
-            if (typeof(IFont).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
-            {
-                IFont font = (IFont)Activator.CreateInstance(type);
-                availableFonts.Add(font);
-            }
-        }
+    private void UpdateTemplate(string name, TextTemplate newTemplate)
+    {
+        var template = _templates.First(t => t.Name.Equals(name));
+        
+        template.Name = newTemplate.Name;
+        template.FontName = newTemplate.FontName;
+        template.Color = newTemplate.Color;
+        template.SpeedInMillis = newTemplate.SpeedInMillis;
+        template.Blinking = newTemplate.Blinking;
+        
+        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+            
+        storageProvider.SaveData(_templates);
+    }
 
-        return availableFonts;
+    public List<TextTemplate> GetTemplates()
+    {
+        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+
+        _templates = (List<TextTemplate>)storageProvider.LoadData();
+
+        return _templates;
     }
 }

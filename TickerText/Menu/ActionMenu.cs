@@ -1,3 +1,4 @@
+using TickerText.Templates;
 using TickerText.Text;
 
 namespace TickerText.Menu;
@@ -12,8 +13,9 @@ public class ActionMenu : IMenu
     public void Show()
     {
         Console.WriteLine("=== Action Menu ===");
-        Console.WriteLine("1. Run Text");
-        Console.WriteLine("2. Back to Main Menu");
+        Console.WriteLine("1. Run text");
+        Console.WriteLine("2. Select template");
+        Console.WriteLine("3. Back to Main Menu");
     }
 
     public void HandleInput()
@@ -27,6 +29,12 @@ public class ActionMenu : IMenu
                 
                 break;
             case 2:
+                SelectTemplate();
+                
+                Program.MenuManager.SetCurrentMenu(this);
+                
+                break;
+            case 3:
                 var menu = new MainMenu();
                 
                 Program.MenuManager.SetCurrentMenu(menu);
@@ -52,5 +60,28 @@ public class ActionMenu : IMenu
         var textRunner = new TextRunner(asciiText, Program.TemplateManager.GetSelectedTemplate().SpeedInMillis);
         
         textRunner.Start();
+    }
+
+    private static void SelectTemplate()
+    {
+        Program.TemplateManager.DisplayTemplates();
+
+        var stringInputManager = new InputManager<string>("Enter template name: ");
+
+        TextTemplate? template = null;
+
+        while (template == null)
+        {
+            var templateSelection = stringInputManager.ReceiveInput();
+
+            template = Program.TemplateManager.GetTemplates().FirstOrDefault(t => t.Name.Equals(templateSelection));
+
+            if (template == null)
+            {
+                Console.WriteLine("Template not found");
+            }
+        }
+        
+        Program.TemplateManager.SetSelectedTemplate(template);
     }
 }

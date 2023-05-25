@@ -1,5 +1,3 @@
-
-
 namespace TickerText.Text.Fonts;
 
 public class FontBig : IFont

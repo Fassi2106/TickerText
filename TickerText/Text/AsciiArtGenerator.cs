@@ -7,11 +7,11 @@ public static class AsciiArtGenerator
 {
     public static string[] GenerateAsciiArt(string text, TextTemplate textTemplate)
     {
-        var result = new string[DetermineHeight(text, textTemplate.Font)-1];
+        var result = new string[DetermineHeight(text, FontHelper.GetFontByName(textTemplate.FontName)) - 1];
         
         foreach (var _char in text)
         {
-            var asciiChar = textTemplate.Font.GetCharacter(_char).Split(Environment.NewLine);
+            var asciiChar = FontHelper.GetFontByName(textTemplate.FontName).GetCharacter(_char).Split(Environment.NewLine);
 
             for (int i = 1; i < asciiChar.Length; i++)
             {

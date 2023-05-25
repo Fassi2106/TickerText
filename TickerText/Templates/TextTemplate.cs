@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using TickerText.Text.Fonts;
 
 namespace TickerText.Templates;
@@ -6,7 +7,7 @@ public class TextTemplate
 {
     public string Name { get; set; }
     
-    public IFont Font { get; set; }
+    public string FontName { get; set; }
     
     public ConsoleColor Color { get; set; }
     
@@ -14,10 +15,12 @@ public class TextTemplate
     
     public bool Blinking { get; set; }
 
-    public TextTemplate(string name, IFont font, ConsoleColor color, int speedInMillis, bool blinking)
+    public TextTemplate(){}
+    
+    public TextTemplate(string name, string fontName, ConsoleColor color, int speedInMillis, bool blinking)
     {
         Name = name;
-        Font = font;
+        FontName = fontName;
         Color = color;
         SpeedInMillis = speedInMillis;
         Blinking = blinking;
@@ -26,7 +29,7 @@ public class TextTemplate
     public void Display()
     {
         Console.WriteLine($"=== {Name} ===");
-        Console.WriteLine($"Font: {Font.Name}");
+        Console.WriteLine($"Font: {FontName}");
         Console.WriteLine($"Color: {Color}");
         Console.WriteLine($"Speed: {SpeedInMillis}");
         Console.WriteLine($"Blinking: {(Blinking ? "Yes" : "No")}");

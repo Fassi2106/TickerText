@@ -5,7 +5,7 @@ namespace TickerText.Templates;
 public class TextTemplateBuilder
 {
     private string _name;
-    private IFont? _font;
+    private string _font;
     private ConsoleColor _color;
     private int _speedInMillis;
     private bool _blinking;
@@ -13,7 +13,7 @@ public class TextTemplateBuilder
     public TextTemplateBuilder(TextTemplate template)
     {
         _name = template.Name;
-        _font = template.Font;
+        _font = template.FontName;
         _color = template.Color;
         _speedInMillis = template.SpeedInMillis;
         _blinking = template.Blinking;
@@ -22,7 +22,7 @@ public class TextTemplateBuilder
     public TextTemplateBuilder()
     {
         _name = "";
-        _font = null;
+        _font = "";
         _color = ConsoleColor.White;
         _speedInMillis = 100;
         _blinking = false;
@@ -35,7 +35,7 @@ public class TextTemplateBuilder
         return this;
     }
 
-    public TextTemplateBuilder SetFont(IFont font)
+    public TextTemplateBuilder SetFont(string font)
     {
         _font = font;
         
