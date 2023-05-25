@@ -91,6 +91,19 @@ public class TemplateManager
         
         templateBuilder.SetColor(color);
 
+        intInputManager = new InputManager<int>("Speed in milliseconds: ");
+
+        var speed = intInputManager.ReceiveInput();
+
+        while (speed < 50)
+        {
+            Console.WriteLine("Minimum is 50");
+
+            speed = intInputManager.ReceiveInput();
+        }
+
+        templateBuilder.SetSpeed(speed);
+        
         var boolInputManager = new InputManager<bool>("Blinking: ");
 
         templateBuilder.SetBlinking(boolInputManager.ReceiveInput());
@@ -150,11 +163,11 @@ public class TemplateManager
             Console.WriteLine($"{i + 1}. {availableFonts[i].Name}");
         }
 
-        var intInputManager = new InputManager<int>("Enter number of font: ", true);
+        var intInputManager = new InputManager<int>("Enter number of font: ");
 
         var fontSelection = intInputManager.ReceiveInput();
 
-        while (fontSelection > availableFonts.Count)
+        while (fontSelection > availableFonts.Count || fontSelection<1)
         {
             Console.WriteLine("Invalid selection.");
 
@@ -174,6 +187,19 @@ public class TemplateManager
         }
         
         templateBuilder.SetColor(color);
+        
+        intInputManager = new InputManager<int>("Speed in milliseconds: ");
+
+        var speed = intInputManager.ReceiveInput();
+
+        while (speed < 50)
+        {
+            Console.WriteLine("Minimum is 50");
+
+            speed = intInputManager.ReceiveInput();
+        }
+
+        templateBuilder.SetSpeed(speed);
         
         var boolInputManager = new InputManager<bool>("Blinking: ", true);
 
