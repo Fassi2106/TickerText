@@ -57,7 +57,9 @@ public class ActionMenu : IMenu
 
         var asciiText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
 
-        var textRunner = new TextRunner(asciiText, Program.TemplateManager.GetSelectedTemplate().SpeedInMillis);
+        var template = Program.TemplateManager.GetSelectedTemplate();
+        
+        var textRunner = new TextRunner(asciiText, template.SpeedInMillis, template.Color, template.Blinking);
         
         textRunner.Start();
     }
