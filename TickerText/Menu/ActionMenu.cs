@@ -13,9 +13,10 @@ public class ActionMenu : IMenu
     public void Show()
     {
         Console.WriteLine("=== Action Menu ===");
-        Console.WriteLine("1. Run text");
-        Console.WriteLine("2. Select template");
-        Console.WriteLine("3. Back to Main Menu");
+        Console.WriteLine("1. Run saved text");
+        Console.WriteLine("2. Run individual text");
+        Console.WriteLine("3. Select template");
+        Console.WriteLine("4. Back to Main Menu");
     }
 
     public void HandleInput()
@@ -25,16 +26,20 @@ public class ActionMenu : IMenu
         switch (inputManager.ReceiveInput())
         {
             case 1:
-                RunText();
+                RunSavedText();
                 
                 break;
             case 2:
+                RunIndividualText();
+                
+                break;
+            case 3:
                 SelectTemplate();
                 
                 Program.MenuManager.SetCurrentMenu(this);
                 
                 break;
-            case 3:
+            case 4:
                 var menu = new MainMenu();
                 
                 Program.MenuManager.SetCurrentMenu(menu);
@@ -49,7 +54,45 @@ public class ActionMenu : IMenu
         }
     }
 
-    private static void RunText()
+    private static void RunSavedText()
+    {
+        var availableTexts = Program.TextManager.GetTexts();
+        if (availableTexts.Count == 0)
+        {
+            Console.WriteLine("No texts available.");
+            return;
+        }
+        
+        Console.WriteLine("Available Texts:");
+
+        for (var i = 0; i < availableTexts.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {availableTexts[i]}");
+        }
+
+        var intInputManager = new InputManager<int>("Enter number of text: ");
+
+        var textSelection = intInputManager.ReceiveInput();
+
+        while (textSelection > availableTexts.Count || textSelection < 1)
+        {
+            Console.WriteLine("Invalid selection.");
+
+            textSelection = intInputManager.ReceiveInput();
+        }
+        
+        var text = availableTexts[textSelection-1];
+        
+        var asciiText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
+
+        var template = Program.TemplateManager.GetSelectedTemplate();
+        
+        var textRunner = new TextRunner(asciiText, template.SpeedInMillis, template.Color, template.Blinking);
+        
+        textRunner.Start();
+    }
+    
+    private static void RunIndividualText()
     {
         var inputManager = new InputManager<string>("Enter text to display: ");
 

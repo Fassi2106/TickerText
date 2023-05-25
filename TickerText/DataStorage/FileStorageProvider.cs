@@ -28,6 +28,11 @@ public class FileStorageProvider : IStorageProvider
     {
         var serializer = new XmlSerializer(_type);
 
+        if (!File.Exists(_filePath))
+        {
+            return default;
+        }
+        
         using (var reader = new StreamReader(_filePath))
         {
             return serializer.Deserialize(reader);

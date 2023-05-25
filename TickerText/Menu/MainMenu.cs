@@ -12,7 +12,8 @@ public class MainMenu : IMenu
         Console.WriteLine("=== Main Menu ===");
         Console.WriteLine("1. Actions");
         Console.WriteLine("2. Templates");
-        Console.WriteLine("3. Exit");
+        Console.WriteLine("3. Texts");
+        Console.WriteLine("4. Exit");
     }
 
     public void HandleInput()
@@ -36,6 +37,12 @@ public class MainMenu : IMenu
                 
                 break;
             case 3:
+                menu = new TextMenu();
+
+                Program.MenuManager.SetCurrentMenu(menu);
+
+                break;
+            case 4:
                 Console.WriteLine("Exit selected.");
                 
                 Environment.Exit(0);

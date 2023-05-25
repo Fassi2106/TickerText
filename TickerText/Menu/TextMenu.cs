@@ -1,22 +1,22 @@
 namespace TickerText.Menu;
 
-public class TemplateMenu : IMenu
+public class TextMenu  : IMenu
 {
-    public TemplateMenu()
+    public TextMenu()
     {
-
+        
     }
 
     public void Show()
     {
-        Console.WriteLine("=== Template Menu ===");
-        Console.WriteLine("1. Show templates");
-        Console.WriteLine("2. Create template");
-        Console.WriteLine("3. Edit template");
-        Console.WriteLine("4. Delete template");
+        Console.WriteLine("=== Text Menu ===");
+        Console.WriteLine("1. Show texts");
+        Console.WriteLine("2. Create text");
+        Console.WriteLine("3. Edit text");
+        Console.WriteLine("4. Delete text");
         Console.WriteLine("5. Back to Main Menu");
     }
-
+    
     public void HandleInput()
     {
         var inputManager = new InputManager<int>("Selection: ");
@@ -24,19 +24,19 @@ public class TemplateMenu : IMenu
         switch (inputManager.ReceiveInput())
         {
             case 1:
-                Program.TemplateManager.DisplayTemplates();
+                Program.TextManager.DisplayTexts();
                 
                 break;
             case 2:
-                Program.TemplateManager.CreateTemplate();
+                Program.TextManager.CreateText();
                 
                 break;
             case 3:
-                Program.TemplateManager.EditTemplate();
+                Program.TextManager.EditText();
                 
                 break;
             case 4:
-                Program.TemplateManager.DeleteTemplate();
+                Program.TextManager.DeleteText();
                 
                 break;
             case 5:

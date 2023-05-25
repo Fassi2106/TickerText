@@ -7,8 +7,8 @@ public class TextRunner
     private readonly int _windowWidth;
     private readonly int _windowHeight;
     private int _currentPosition;
-    private ConsoleColor _textColor;
-    private bool _isBlinking;
+    private readonly ConsoleColor _textColor;
+    private readonly bool _isBlinking;
 
     public TextRunner(string[] lines, int speed, ConsoleColor textColor, bool isBlinking)
     {

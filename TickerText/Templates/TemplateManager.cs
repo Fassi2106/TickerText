@@ -9,6 +9,8 @@ public class TemplateManager
     private List<TextTemplate> _templates;
 
     private TextTemplate _selectedTemplate;
+
+    private string _configFilePath = "TickerConfig.txt";
     
     public TemplateManager()
     {
@@ -248,7 +250,7 @@ public class TemplateManager
     {
         _templates.Remove(template);
         
-        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
             
         storageProvider.SaveData(_templates);
     }
@@ -257,7 +259,7 @@ public class TemplateManager
     {
         _templates.Add(template);
         
-        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
             
         storageProvider.SaveData(_templates);
     }
@@ -272,14 +274,14 @@ public class TemplateManager
         template.SpeedInMillis = newTemplate.SpeedInMillis;
         template.Blinking = newTemplate.Blinking;
         
-        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
             
         storageProvider.SaveData(_templates);
     }
 
     public List<TextTemplate> GetTemplates()
     {
-        var storageProvider = new FileStorageProvider(Program.ConfigFilePath, typeof(List<TextTemplate>));
+        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
 
         _templates = (List<TextTemplate>)storageProvider.LoadData();
 
