@@ -24,13 +24,13 @@ public class FileStorageProvider : IStorageProvider
         }
     }
 
-    public object? LoadData()
+    public object? LoadData(object? _default = default)
     {
         var serializer = new XmlSerializer(_type);
 
         if (!File.Exists(_filePath))
         {
-            return default;
+            return _default;
         }
         
         using (var reader = new StreamReader(_filePath))

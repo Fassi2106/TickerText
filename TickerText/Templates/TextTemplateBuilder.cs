@@ -70,7 +70,7 @@ public class TextTemplateBuilder
             throw new ArgumentException("A name must be set");
         }
 
-        if (_font == null)
+        if (string.IsNullOrEmpty(_font))
         {
             throw new ArgumentException("A font must be selected");
         }

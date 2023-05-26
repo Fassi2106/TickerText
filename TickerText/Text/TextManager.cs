@@ -142,7 +142,7 @@ public class TextManager
     {
         var storageProvider = CreateFileStorageProvider(); 
 
-        _texts = (List<string>)storageProvider.LoadData();
+        _texts = (List<string>)storageProvider.LoadData(new List<string>());
 
         return _texts;
     }

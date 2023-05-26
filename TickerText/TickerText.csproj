@@ -7,4 +7,25 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Update="TickerTextTests\Usings.cs">
+        <Link>TickerTextTest\Usings.cs</Link>
+      </Compile>
+      <Compile Update="TickerTextTests\TemplateManagerTests.cs">
+        <Link>TickerTextTest\TemplateManagerTests.cs</Link>
+      </Compile>
+	  <Compile Update="TickerTextTests\TextTemplateBuilderTests.cs">
+        <Link>TickerTextTest\TextTemplateBuilderTests.cs</Link>
+      </Compile>
+      <Compile Remove="TickerTextTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="TickerTextTests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TickerTextTests\**" />
+    </ItemGroup>
+
 </Project>

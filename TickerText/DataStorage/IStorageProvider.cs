@@ -4,5 +4,5 @@ public interface IStorageProvider
 {
     void SaveData(object data);
     
-    object? LoadData();
+    object? LoadData(object? _default);
 }

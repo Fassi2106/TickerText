@@ -246,16 +246,16 @@ public class TemplateManager
         Console.WriteLine("Template deleted successfully.");
     }
 
-    private void RemoveTemplate(TextTemplate template)
+    public void RemoveTemplate(TextTemplate template)
     {
-        _templates.Remove(template);
+        _templates.RemoveAll(t => t.Name.Equals(template.Name));
         
         var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
             
         storageProvider.SaveData(_templates);
     }
 
-    private void AddTemplate(TextTemplate template)
+    public void AddTemplate(TextTemplate template)
     {
         _templates.Add(template);
         
@@ -264,7 +264,7 @@ public class TemplateManager
         storageProvider.SaveData(_templates);
     }
 
-    private void UpdateTemplate(string name, TextTemplate newTemplate)
+    public void UpdateTemplate(string name, TextTemplate newTemplate)
     {
         var template = _templates.First(t => t.Name.Equals(name));
         
@@ -283,7 +283,7 @@ public class TemplateManager
     {
         var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
 
-        _templates = (List<TextTemplate>)storageProvider.LoadData();
+        _templates = (List<TextTemplate>)storageProvider.LoadData(new List<TextTemplate>());
 
         return _templates;
     }
