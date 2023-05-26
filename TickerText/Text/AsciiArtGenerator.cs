@@ -5,7 +5,7 @@ namespace TickerText.Text;
 
 public static class AsciiArtGenerator
 {
-    public static string[] GenerateAsciiArt(string text, TextTemplate textTemplate)
+    public static string[] ConvertTextToAsciiArt(string text, TextTemplate textTemplate)
     {
         var result = new string[DetermineHeight(text, FontHelper.GetFontByName(textTemplate.FontName)) - 1];
         
