@@ -249,19 +249,13 @@ public class TemplateManager
     public void RemoveTemplate(TextTemplate template)
     {
         _templates.RemoveAll(t => t.Name.Equals(template.Name));
-        
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
-            
-        storageProvider.SaveData(_templates);
+        SaveData(_templates);
     }
 
     public void AddTemplate(TextTemplate template)
     {
         _templates.Add(template);
-        
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
-            
-        storageProvider.SaveData(_templates);
+        SaveData(_templates);
     }
 
     public void UpdateTemplate(string name, TextTemplate newTemplate)
@@ -274,11 +268,15 @@ public class TemplateManager
         template.SpeedInMillis = newTemplate.SpeedInMillis;
         template.Blinking = newTemplate.Blinking;
         
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
-            
-        storageProvider.SaveData(_templates);
+        SaveData(_templates);
     }
 
+    private void SaveData(List<TextTemplate> _templates)
+    {
+        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
+        storageProvider.SaveData(_templates);
+    }
+    
     public List<TextTemplate> GetTemplates()
     {
         var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<TextTemplate>));
