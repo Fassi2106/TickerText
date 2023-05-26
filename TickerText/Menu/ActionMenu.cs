@@ -36,13 +36,13 @@ public class ActionMenu : IMenu
             case 3:
                 SelectTemplate();
                 
-                Program.MenuManager.SetCurrentMenu(this);
+                MenuManager.Instance.SetCurrentMenu(this);
                 
                 break;
             case 4:
                 var menu = new MainMenu();
                 
-                Program.MenuManager.SetCurrentMenu(menu);
+                MenuManager.Instance.SetCurrentMenu(menu);
                 
                 break;
             default:
@@ -83,7 +83,7 @@ public class ActionMenu : IMenu
         
         var text = availableTexts[textSelection-1];
         
-        var asciiText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
+        var asciiText = AsciiArtGenerator.ConvertTextToAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
 
         var template = Program.TemplateManager.GetSelectedTemplate();
         
@@ -98,7 +98,7 @@ public class ActionMenu : IMenu
 
         var text = inputManager.ReceiveInput();
 
-        var asciiText = AsciiArtGenerator.GenerateAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
+        var asciiText = AsciiArtGenerator.ConvertTextToAsciiArt(text, Program.TemplateManager.GetSelectedTemplate());
 
         var template = Program.TemplateManager.GetSelectedTemplate();
         

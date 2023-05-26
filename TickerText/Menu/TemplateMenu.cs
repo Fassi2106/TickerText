@@ -42,7 +42,7 @@ public class TemplateMenu : IMenu
             case 5:
                 IMenu menu = new MainMenu();
                 
-                Program.MenuManager.SetCurrentMenu(menu);
+                MenuManager.Instance.SetCurrentMenu(menu);
                 
                 break;
             default:
@@ -53,6 +53,6 @@ public class TemplateMenu : IMenu
                 break;
         }
         
-        Program.MenuManager.RunCurrentMenu(false);
+        MenuManager.Instance.RunCurrentMenu(false);
     }
 }

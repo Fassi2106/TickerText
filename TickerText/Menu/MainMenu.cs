@@ -27,19 +27,19 @@ public class MainMenu : IMenu
             case 1:
                 menu = new ActionMenu();
                 
-                Program.MenuManager.SetCurrentMenu(menu);
+                MenuManager.Instance.SetCurrentMenu(menu);
                 
                 break;
             case 2:
                 menu = new TemplateMenu();
                 
-                Program.MenuManager.SetCurrentMenu(menu);
+                MenuManager.Instance.SetCurrentMenu(menu);
                 
                 break;
             case 3:
                 menu = new TextMenu();
 
-                Program.MenuManager.SetCurrentMenu(menu);
+                MenuManager.Instance.SetCurrentMenu(menu);
 
                 break;
             case 4:
