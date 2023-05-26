@@ -113,7 +113,7 @@ public class TextManager
     {
         _texts.Remove(text);
         
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<string>));
+        var storageProvider = CreateFileStorageProvider();
         
         storageProvider.SaveData(_texts);
     }
@@ -122,7 +122,7 @@ public class TextManager
     {
         _texts.Add(text);
         
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<string>));
+        var storageProvider = CreateFileStorageProvider();
         
         storageProvider.SaveData(_texts);
     }
@@ -133,17 +133,22 @@ public class TextManager
 
         _texts[index] = newText;
         
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<string>));
+        var storageProvider = CreateFileStorageProvider();
 
         storageProvider.SaveData(_texts);
     }
     
     public List<string> GetTexts()
     {
-        var storageProvider = new FileStorageProvider(_configFilePath, typeof(List<string>));
+        var storageProvider = CreateFileStorageProvider(); 
 
         _texts = (List<string>)storageProvider.LoadData();
 
         return _texts;
+    }
+
+    private FileStorageProvider CreateFileStorageProvider()
+    {
+        return new FileStorageProvider(_configFilePath, typeof(List<string>));
     }
 }
